@@ -4,6 +4,8 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import { useSelector } from 'react-redux'
 import Spinner from './Components/Spinner';
+import ProtectedRoute from './Components/ProtectedRoute';
+import PublicRoute from './Components/PublicRoute';
 
 function App() {
   const { loading } = useSelector((state) =>
@@ -16,9 +18,21 @@ function App() {
           <Spinner />
         ) : (
           <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
+            <Route path='/' element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            } />
+            <Route path='/login' element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            } />
+            <Route path='/register' element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            } />
           </Routes>
         )}
       </BrowserRouter>
