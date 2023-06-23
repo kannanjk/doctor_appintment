@@ -13,6 +13,6 @@ export const alertSlice = createSlice({
             state.loading = false
         }
     }
-})
+}) 
 
 export const { showLoading,hideLoading } = alertSlice.actions

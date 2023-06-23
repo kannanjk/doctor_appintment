@@ -14,6 +14,7 @@ function Login() {
     try {
       Dispatch(showLoading())
       const res = await axios.post('/user/login', value)
+      window.location.reload()
       Dispatch(hideLoading())
       if (res.data.success) {
         localStorage.setItem("token", res.data.token)

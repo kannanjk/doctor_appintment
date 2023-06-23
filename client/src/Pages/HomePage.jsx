@@ -1,29 +1,31 @@
 import React, { useEffect } from 'react'
-import axios from 'axios' 
+import axios from 'axios'
+import LayOut from '../Components/LayOut';
 
 function HomePage() {
   // Login user data
   const getUserData = async () => {
-    try {  
-      const getToken =  localStorage.getItem("token")
-        
+    try {
+      const getToken = localStorage.getItem("token")
+
       const getAuthorizationHeader = () => `Bearer ${getToken}`;
-      const axiosInstance = await axios.post('/user/getUseData',{},{
+      await axios.post('/user/getUseData', {}, {
         headers: { Authorization: getAuthorizationHeader() },
-      }); 
-      console.log(axiosInstance);
+      });
     } catch (error) {
       console.log(error);
-    } 
+    }
   }
 
   useEffect(() => {
     getUserData()
   }, [])
-  
+
   return (
     <div>
-      <h1>Home Page</h1>
+      <LayOut>
+        <h1>Home Page</h1>
+      </LayOut>
     </div>
   )
 }
