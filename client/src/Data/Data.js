@@ -29,7 +29,7 @@ export const adminMenu =[
     },
     {
         name: ' Doctors',
-        path: '/doctor',
+        path: '/doctors',
         icon: 'fa-solid fa-user-doctor'
     },
     {

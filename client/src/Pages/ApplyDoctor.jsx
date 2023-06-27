@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { hideLoading, showLoading } from '../Redux/Features/AlertSlice'
 import axios from 'axios'
+import dayjs, {} from 'dayjs'
 
 function ApplyDoctor() {
     const { user } = useSelector(state => state.user)
@@ -12,15 +13,21 @@ function ApplyDoctor() {
     const navigate = useNavigate()
 
     // handle form
-    const handleFinish =async (values) => {
+    const handleFinish = async (values) => {
         try {
             dispatch(showLoading())
-            const res = await axios.post('/user/doctor-apply', { ...values, userId: user._id }, {
+            const res = await axios.post('/user/doctor-apply', {
+                ...values, userId: user._id,
+                timings: [
+                    dayjs(values.timings[0]).format('HH:mm'),
+                    dayjs(values.timings[1]).format('HH:mm')
+                ]
+            }, {
                 headers: {
-                    Authorization: `Beare ${localStorage.getItem('token')}`
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             })
-            dispatch(hideLoading()) 
+            dispatch(hideLoading())
             if (res.data.success) {
                 message.success(res.data.success)
                 navigate('/')
@@ -124,21 +131,21 @@ function ApplyDoctor() {
                     <Col xs={24} md={24} lg={8}>
                         <Form.Item
                             label='feesPerCunsaltation'
-                            name='feesPerCunsaltation'
+                            name='feesPreCunsaltaion'
                             required
                             rules={[{ required: true }]}
                         >
-                            <Input type='text' placeholder='Your feesPerCunsaltation'></Input>
+                            <Input type='number' placeholder='Your feesPerCunsaltation'></Input>
                         </Form.Item>
                     </Col>
                     <Col xs={24} md={24} lg={8}>
                         <Form.Item
                             label='Timings'
-                            name='tinings'
+                            name='timings'
                             required
                             rules={[{ required: true }]}
                         >
-                            <TimePicker.RangePicker format='HH:mm' />
+                            <TimePicker.RangePicker format="HH:mm" />
                         </Form.Item>
                     </Col>
                 </Row>

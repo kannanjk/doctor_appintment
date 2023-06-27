@@ -31,9 +31,9 @@ const doctorSchema = new mongoose.Schema(
         specialzation:{
             type:String,
             require:[true,"specialzation is required"]
-        },
+        }, 
         exprerience:{ 
-            type:String,
+            type:String, 
             require:[true,"exprerience is required"]
         },
         feesPreCunsaltaion:{
@@ -44,8 +44,8 @@ const doctorSchema = new mongoose.Schema(
             type:String,
             default:'pending'
         },
-        tinings:{
-            type:Object,
+        timings:{
+            type:Array,
             require:[true,'Timing required']
         }
     },{

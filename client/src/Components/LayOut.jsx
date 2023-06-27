@@ -9,7 +9,31 @@ function LayOut({ children }) {
     const navigate = useNavigate()
     const { user } = useSelector(state => state.user)
     const location = useLocation()
-    const sideBarMenu = user?.isAdmin ? adminMenu : userMenu
+
+    const doctorMenu = [
+        {
+            name: 'Home',
+            path: '/',
+            icon: 'fa-solid fa-house'
+        },
+        {
+            name: 'Appointment',
+            path: 'appointment',
+            icon: 'fa-solid fa-bars'
+        },
+        {
+            name: 'Profile',
+            path: `/profile/${user?._id}`,
+            icon: 'fa-regular fa-user'
+        },
+    ]
+
+    const sideBarMenu = user?.isAdmin 
+    ? adminMenu 
+    : user?.isDoctor
+    ?doctorMenu
+    :userMenu
+    
 
     const logout = () => {
         localStorage.clear()

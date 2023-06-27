@@ -57,6 +57,7 @@ const authControler = async (req, res) => {
 }
 
 const applyDoctor = async (req, res) => {
+    console.log(req.body);
     try {
         const newDoctor = await doctorModel({ ...req.body, status: 'pending' })
         await newDoctor.save()
@@ -99,4 +100,39 @@ const getAllNotification = async (req, res) => {
     }
 }
 
-module.exports = { login, register, authControler, applyDoctor ,getAllNotification}
+const deleteAllNotification = async (req, res) => {
+    try {
+        const user = await userModel.findOne({ _id: req.body.userId })
+        user.notification = []
+        user.seenNotification = []
+        const updatedUser = await user.save()
+        updatedUser.password = undefined
+        res.status(200).send({
+            success: true,
+            message: 'Notification delete successFullly',
+            data: updatedUser
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ success: false, message: "unable to delete" })
+    }
+}
+
+const getAllDoctors = async (req,res)=>{
+    try {
+        const doctor = await doctorModel.find({status:"approved"})
+        res.status(200).send({
+            success:true,
+            message:"doctor List fetching succss",
+            data:doctor
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success:false,
+            message:'fetching errr'
+        })
+    }
+}
+
+module.exports = { login, register, authControler, applyDoctor, getAllNotification,deleteAllNotification,getAllDoctors }

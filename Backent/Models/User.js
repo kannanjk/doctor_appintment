@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:[true,'email is require']
     },
-    password:{
-        type:String,
+    password:{ 
+        type:String, 
         required:[true,'password is require']
     },
     isAdmin:{
@@ -28,8 +28,12 @@ const userSchema = new mongoose.Schema({
     seenNotification:{
         type:Array,
         default:[]
-    }
-})
+    },  
+},
+{
+    timestamps:true
+}
+)
 
 const userModel = mongoose.model('users',userSchema)
 module.exports = userModel

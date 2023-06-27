@@ -15,7 +15,6 @@
   "name": "backent",
   "version": "1.0.0",
   "main": "Server.js",
-  "devDependencies": {},
   "author": "",
   "license": "ISC",
   "description": ""
