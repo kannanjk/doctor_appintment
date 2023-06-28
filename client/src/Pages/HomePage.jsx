@@ -6,7 +6,6 @@ import { Row } from 'antd';
 
 function HomePage() {
   const [doctors, setDoctors] = useState([])
-  console.log(doctors);
   // Login user data
   const getUserData = async () => {
     try {

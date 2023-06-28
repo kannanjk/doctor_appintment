@@ -7,10 +7,11 @@ import dayjs from 'dayjs';
 
 function BookingPage() {
     const params = useParams()
-    const [doctors, setDoctors] = useState([])
+    const [doctors, setDoctors] = useState()
+  
     const [date, setDate] = useState()
     const [timings, setTimings] = useState()
-    const [isAvailable, setAvailable] = useState()
+    // const [isAvailable, setAvailable] = useState()
     // Login user data
     const getUserData = async () => {
         try {
@@ -35,7 +36,7 @@ function BookingPage() {
         <LayOut>
             <h3>BookingPage</h3>
             <div className="container m-2">
-                {
+                { 
                     doctors && (
                         <div>
                             <h4> Dr. {doctors.firstName} {doctors.lastName} </h4>
@@ -49,12 +50,12 @@ function BookingPage() {
                                         setDate(dayjs(value).format('DD-MM-YYYY'))}
                                 />
                                 <TimePicker.RangePicker
-                                    format='HH:mm'
+                                    format="HH:mm"
                                     className='m-2'
                                     onChange={(values) => setTimings([
-                                        dayjs(values[0]).format('HH:mm'),
-                                        dayjs(values[1]).format('HH:mm'),
-                                    ])}
+                                        dayjs(doctors.timings[0], 'HH:mm'),
+                                        dayjs(doctors.timings[1], 'HH:mm'),
+                                    ])} 
                                 />
                                 <button className='btn btn-primary'>Check Availability</button>
                             </div>
