@@ -12,6 +12,7 @@ import Users from './Pages/Admin/Users';
 import Doctors from './Pages/Admin/Doctors';
 import Profile from './Pages/Doctor/Profile';
 import BookingPage from './Pages/BookingPage';
+import Appointments from './Pages/Appointments';
 
 function App() {
   const { loading } = useSelector((state) =>
@@ -24,6 +25,16 @@ function App() {
           <Spinner />
         ) : (
           <Routes>
+             <Route path='/login' element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute> 
+            } />
+            <Route path='/register' element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            } />
             <Route path='/' element={
               <ProtectedRoute>
                 <HomePage />
@@ -44,11 +55,7 @@ function App() {
                 <Doctors />
               </ProtectedRoute>
             } />
-             <Route path='/profile/:id' element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            } />
+           
             <Route path='/book-appointment/:doctorId' element={
               <ProtectedRoute>
                 <BookingPage />
@@ -59,17 +66,19 @@ function App() {
                 <Users />
               </ProtectedRoute>
             } />
-            <Route path='/login' element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
+           
+            <Route path='/profile/:id' element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
             } />
-            <Route path='/register' element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
+            <Route path='/appointment' element={
+              <ProtectedRoute>
+                <Appointments />
+              </ProtectedRoute>
             } />
-
+            
+              
           </Routes>
         )}
       </BrowserRouter>

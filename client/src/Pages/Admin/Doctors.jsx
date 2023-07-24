@@ -5,7 +5,6 @@ import { Table, message } from 'antd';
 
 function Doctors() {
   const [doctors, setdoctors] = useState([])
-  console.log(doctors);
 
   const getDoctors = async () => {
     try {
@@ -22,11 +21,11 @@ function Doctors() {
     }
   }
 
-  const handleAccountstatus =async(record,status)=>{
+  const handleAccountstatus = async (record, status) => {
     try {
-      const res = await axios.post('/admin/update-user-status',{doctorId:record._id,userId:record.userId,status:status},{
-        headers:{
-          Authorization:`Bearer ${localStorage.getItem('token')}`
+      const res = await axios.post('/admin/update-user-status', { doctorId: record._id, userId: record.userId, status: status }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
       if (res.data.success) {
@@ -36,7 +35,7 @@ function Doctors() {
     } catch (error) {
       console.log(error);
       message.error("somthing went Wrong")
-    }                      
+    }
   }
 
   useEffect(() => {
@@ -66,7 +65,7 @@ function Doctors() {
         <div className="d-flex">
           {
             record.status === "pending" ? (
-              <button className='btn btn-primary' onClick={() => handleAccountstatus(record,'approved')}>Approve</button>
+              <button className='btn btn-primary' onClick={() => handleAccountstatus(record, 'approved')}>Approve</button>
             ) : (
               <button className='btn btn-danger'>Reject</button>
             )

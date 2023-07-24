@@ -2,9 +2,10 @@ const userModel = require('../Models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const doctorModel = require('../Models/Doctor.js');
+const appointmentModel = require('../Models/AppointmentModel');
+const moment = require('moment')
 
 const register = async (req, res) => {
-    console.log(req.body);
     try {
         const existUser = await userModel.findOne({ email: req.body.email })
         if (existUser) {
@@ -118,21 +119,105 @@ const deleteAllNotification = async (req, res) => {
     }
 }
 
-const getAllDoctors = async (req,res)=>{
+const getAllDoctors = async (req, res) => {
     try {
-        const doctor = await doctorModel.find({status:"approved"})
+        const doctor = await doctorModel.find({ status: "approved" })
+        res.status(200).send({
+            success: true,
+            message: "doctor List fetching succss",
+            data: doctor
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'fetching errr'
+        })
+    }
+}
+
+const bookAppointment = async (req, res) => {
+    try {
+        req.body.date = moment(req.body.date, "DD-MM-YYYY").toISOString()
+        req.body.time = moment(req.body.time, "HH:mm").toISOString()
+        req.body.status = 'pending'
+        const newAppointment = new appointmentModel(req.body)
+        await newAppointment.save()
+        const user = await userModel.findOne({ _id: req.body.doctorInfo.userId })
+        user.notification.push({
+            type: "new-appointment-request",
+            message: `a new appointment request From ${req.body.userInfo.name}`,
+            onclickPath: '/user/appointments'
+        })
+        await user.save()
+        res.status(200).send({
+            success: true,
+            message: "Appointment Book successfully"
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "error found"
+        })
+    }
+}
+
+const bookingAvailable = async (req, res) => {
+    try {
+        const date = moment(req.body.date, 'DD-MM-YYYY').toISOString()
+        const formTime = moment(req.body.time, 'HH:mm').subtract(1, 'hours').toISOString()
+        const toTime = moment(req.body.time, 'HH:mm').add(1, 'hours').toISOString()
+        const doctorId = req.body.doctorId
+        const appointments = await appointmentModel.find({
+            doctorId,
+            date,
+            time: {
+                $gte: formTime,
+                $lte: toTime
+            }
+        })
+        if (appointments.length > 0) {
+            return res.status(200).send({
+                success: true,
+                message: 'Appointments Not Available At This Time'
+            })
+        } else {
+            return res.status(200).send({
+                success: true,
+                message: "Appiontment Available"
+            })
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "available error"
+        })
+    }
+}
+
+const userAppointments = async(req, res)=> {
+    try {
+        const appointment = await appointmentModel.find({
+            userId:req.body.userId
+        })
         res.status(200).send({
             success:true,
-            message:"doctor List fetching succss",
-            data:doctor
+            message:"User Appointments Fetch successFull",
+            data:appointment
         })
     } catch (error) {
         console.log(error);
         res.status(500).send({
             success:false,
-            message:'fetching errr'
+            
         })
     }
 }
 
-module.exports = { login, register, authControler, applyDoctor, getAllNotification,deleteAllNotification,getAllDoctors }
+
+module.exports = {
+    login, register, authControler, applyDoctor, getAllNotification, deleteAllNotification, getAllDoctors,
+    bookAppointment, bookingAvailable,userAppointments
+}

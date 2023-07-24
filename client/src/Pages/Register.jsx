@@ -11,7 +11,7 @@ function Register() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+ 
     //form Handler
     const onFinishHandler = async (value) => {
         try {

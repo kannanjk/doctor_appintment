@@ -18,7 +18,7 @@ function LayOut({ children }) {
         },
         {
             name: 'Appointment',
-            path: 'appointment',
+            path: '/appointment',
             icon: 'fa-solid fa-bars'
         },
         {
@@ -27,13 +27,36 @@ function LayOut({ children }) {
             icon: 'fa-regular fa-user'
         },
     ]
+    const userMenu = [
+        {
+            name: 'Home',
+            path: '/',
+            icon: 'fa-solid fa-house'
+        },
+        {
+            name: 'Appointment',
+            path: '/appointment',
+            icon: 'fa-solid fa-bars'
+        },
+        {
+            name: 'Apply Doctor',
+            path: '/apply-doctor',
+            icon: 'fa-solid fa-user-doctor'
+        },
+        {
+            name: 'Profile',
+            path: `/profile/${user?._id}`,
+            icon: 'fa-regular fa-user'
+        },
+    ]
 
-    const sideBarMenu = user?.isAdmin 
-    ? adminMenu 
-    : user?.isDoctor
-    ?doctorMenu
-    :userMenu
-    
+
+    const sideBarMenu = user?.isAdmin
+        ? adminMenu
+        : user?.isDoctor
+            ? doctorMenu
+            : userMenu
+
 
     const logout = () => {
         localStorage.clear()
@@ -71,17 +94,16 @@ function LayOut({ children }) {
                 </div>
                 <div className="content">
                     <div className="header">
-                        <div className="header-content" style={{cursor:'pointer'}}>
+                        <div className="header-content" style={{ cursor: 'pointer' }}>
                             <Badge
                                 count={user && user.notification.length}
                                 onClick={() => {
                                     navigate('/notification')
-                                    console.log("kannan");
                                 }}
                             >
                                 <i class="fa-solid fa-bell" ></i>
                             </Badge>
-                            <Link to='/profile' > {user?.name} </Link>
+                            <Link to={`/profile/${user?._id}`} > {user?.name} </Link>
                         </div>
                     </div>
                     <div className="body"> {children} </div>
