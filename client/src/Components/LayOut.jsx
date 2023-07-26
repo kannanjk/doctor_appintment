@@ -18,7 +18,7 @@ function LayOut({ children }) {
         },
         {
             name: 'Appointment',
-            path: '/appointment',
+            path: '/doctor-appointment',
             icon: 'fa-solid fa-bars'
         },
         {

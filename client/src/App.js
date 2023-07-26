@@ -13,6 +13,7 @@ import Doctors from './Pages/Admin/Doctors';
 import Profile from './Pages/Doctor/Profile';
 import BookingPage from './Pages/BookingPage';
 import Appointments from './Pages/Appointments';
+import DoctorAppointments from './Pages/Doctor/DoctorAppointments';
 
 function App() {
   const { loading } = useSelector((state) =>
@@ -25,60 +26,73 @@ function App() {
           <Spinner />
         ) : (
           <Routes>
-             <Route path='/login' element={
+
+            <Route path='/login' element={
               <PublicRoute>
                 <Login />
-              </PublicRoute> 
+              </PublicRoute>
             } />
+
             <Route path='/register' element={
               <PublicRoute>
                 <Register />
               </PublicRoute>
             } />
+
             <Route path='/' element={
               <ProtectedRoute>
                 <HomePage />
               </ProtectedRoute>
             } />
+
             <Route path='/apply-doctor' element={
               <ProtectedRoute>
                 <ApplyDoctor />
               </ProtectedRoute>
             } />
+
             <Route path='/notification' element={
               <ProtectedRoute>
                 <NotificationPage />
               </ProtectedRoute>
             } />
-             <Route path='/doctors' element={
+
+            <Route path='/doctors' element={
               <ProtectedRoute>
                 <Doctors />
               </ProtectedRoute>
             } />
-           
+
             <Route path='/book-appointment/:doctorId' element={
               <ProtectedRoute>
                 <BookingPage />
               </ProtectedRoute>
             } />
-             <Route path='/users' element={
+
+            <Route path='/users' element={
               <ProtectedRoute>
                 <Users />
               </ProtectedRoute>
             } />
-           
+
             <Route path='/profile/:id' element={
               <ProtectedRoute>
                 <Profile />
               </ProtectedRoute>
             } />
+
             <Route path='/appointment' element={
               <ProtectedRoute>
                 <Appointments />
               </ProtectedRoute>
             } />
-            
-              
+
+            <Route path='/doctor-appointment' element={
+              <ProtectedRoute>
+                <DoctorAppointments />
+              </ProtectedRoute>
+            } />
+
           </Routes>
         )}
       </BrowserRouter>
