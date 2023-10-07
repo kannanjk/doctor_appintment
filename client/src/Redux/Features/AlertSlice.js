@@ -5,7 +5,7 @@ export const alertSlice = createSlice({
     initialState: { 
         loading: false
     },
-    reducers: {
+    reducers: { 
         showLoading: (state) => {
             state.loading = true
         },

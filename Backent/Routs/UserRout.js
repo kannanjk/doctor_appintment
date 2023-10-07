@@ -16,12 +16,12 @@ app.post('/get-all-notification', AuthMiddleware, getAllNotification)
 
 app.post('/delete-all-notification', AuthMiddleware, deleteAllNotification)
 
-app.get('/getAllDoctors', getAllDoctors)
+app.get('/getAllDoctors', AuthMiddleware, getAllDoctors)
 
 app.post('/book-appointment', AuthMiddleware, bookAppointment)
 
 app.post('/booking-available', AuthMiddleware, bookingAvailable)
 
-app.get('/userAppointments',AuthMiddleware, userAppointments)
+app.get('/userAppointments', AuthMiddleware, userAppointments)
 
 module.exports = app 

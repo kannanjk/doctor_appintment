@@ -24,7 +24,7 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    try {
+    try { 
         const user = await userModel.findOne({ email: req.body.email })
         if (user) {
             const token = jwt.sign({ id: user._id }, process.env.JSON_SECRETKEY, {
@@ -58,7 +58,6 @@ const authControler = async (req, res) => {
 }
 
 const applyDoctor = async (req, res) => {
-    console.log(req.body);
     try {
         const newDoctor = await doctorModel({ ...req.body, status: 'pending' })
         await newDoctor.save()

@@ -12,7 +12,7 @@
     "nodemon": "^2.0.22"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon Server.js"
   },
   "name": "backent",
   "version": "1.0.0",

@@ -3,7 +3,6 @@ import LayOut from '../Components/LayOut'
 import axios, { } from 'axios'
 import dayjs, { } from 'dayjs'
 import { Table } from 'antd'
-import  moment from 'moment'
 
 function Appointments() {
 

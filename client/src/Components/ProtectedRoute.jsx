@@ -10,12 +10,13 @@ function ProtectedRoute({ children }) {
     const { user } = useSelector((state) =>
     state.user
     )
-
+ 
     const getUser = async ()=>{
         try {
             dispatch(showLoading())
-            const res = await axios.post('/user/getUseData',
-            {token:localStorage.getItem('token')},
+            const res = await axios.post('/user/getUseData',{
+                token:localStorage.getItem('token')
+            }, 
             {
                 headers:{
                     Authorization:`Bearer ${localStorage.getItem('token')}`
@@ -28,7 +29,7 @@ function ProtectedRoute({ children }) {
                 <Navigate to='/login' />
                 localStorage.clear()
             }
-        } catch (error) {
+        } catch (error) { 
             dispatch(hideLoading())
             console.log(error);
             localStorage.clear()

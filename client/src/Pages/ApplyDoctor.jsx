@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { hideLoading, showLoading } from '../Redux/Features/AlertSlice'
 import axios from 'axios'
-import dayjs, {} from 'dayjs'
+import dayjs, { } from 'dayjs'
 
 function ApplyDoctor() {
     const { user } = useSelector(state => state.user)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch()  
     const navigate = useNavigate()
+    React.lazy(() => {
+
+    })
 
     // handle form
     const handleFinish = async (values) => {
@@ -21,7 +24,7 @@ function ApplyDoctor() {
                 timings: [
                     dayjs(values.timings[0]).format('HH:mm'),
                     dayjs(values.timings[1]).format('HH:mm')
-                ]
+                ] 
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`

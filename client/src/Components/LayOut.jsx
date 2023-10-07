@@ -1,6 +1,6 @@
 import React from 'react'
 import '../Styles/LayOut.css'
-import { adminMenu, userMenu } from '../Data/Data'
+import { adminMenu } from '../Data/Data'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Badge, message } from 'antd'

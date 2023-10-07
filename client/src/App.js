@@ -16,15 +16,13 @@ import Appointments from './Pages/Appointments';
 import DoctorAppointments from './Pages/Doctor/DoctorAppointments';
 
 function App() {
-  const { loading } = useSelector((state) =>
-    state.alert
-  )
+  const { loading } = useSelector((state) =>state.alert)
   return (
     <>
       <BrowserRouter>
         {loading ? (
           <Spinner />
-        ) : (
+        ) :  (
           <Routes>
 
             <Route path='/login' element={
@@ -94,7 +92,7 @@ function App() {
             } />
 
           </Routes>
-        )}
+        ) }
       </BrowserRouter>
     </>
   );
