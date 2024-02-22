@@ -24,7 +24,7 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    try { 
+    try {
         const user = await userModel.findOne({ email: req.body.email })
         if (user) {
             const token = jwt.sign({ id: user._id }, process.env.JSON_SECRETKEY, {
@@ -196,21 +196,21 @@ const bookingAvailable = async (req, res) => {
     }
 }
 
-const userAppointments = async(req, res)=> {
+const userAppointments = async (req, res) => {
     try {
         const appointment = await appointmentModel.find({
-            userId:req.body.userId
+            userId: req.body.userId
         })
         res.status(200).send({
-            success:true,
-            message:"User Appointments Fetch successFull",
-            data:appointment
+            success: true,
+            message: "User Appointments Fetch successFull",
+            data: appointment
         })
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            success:false,
-            
+            success: false,
+
         })
     }
 }
@@ -218,5 +218,5 @@ const userAppointments = async(req, res)=> {
 
 module.exports = {
     login, register, authControler, applyDoctor, getAllNotification, deleteAllNotification, getAllDoctors,
-    bookAppointment, bookingAvailable,userAppointments
+    bookAppointment, bookingAvailable, userAppointments
 }

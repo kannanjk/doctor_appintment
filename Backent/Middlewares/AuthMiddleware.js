@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
         jwt.verify(token, process.env.JSON_SECRETKEY, (err, decode) => {
             if (err) {
                 return res.status(200).send({
-                    message: "auth Fail error", 
+                    message: "auth Fail error",
                     success: false
                 })
             } else {

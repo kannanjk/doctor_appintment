@@ -82,8 +82,8 @@ const updateStatus = async (req, res) => {
             { status }
         )
         const user = await userModel.findOne({ _id: appointments.userId })
-       const notification= user.notification
-       notification.push(
+        const notification = user.notification
+        notification.push(
             {
                 type: "status-updated",
                 message: `Your appointment has been updated ${status}`,
@@ -105,4 +105,4 @@ const updateStatus = async (req, res) => {
     }
 }
 
-module.exports = { getDoctorInfo, updateProfile, getDoctorById, doctorappointment ,updateStatus}
+module.exports = { getDoctorInfo, updateProfile, getDoctorById, doctorappointment, updateStatus }
