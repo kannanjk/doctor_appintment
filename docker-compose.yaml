@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  nosql-db:
+    image: mvertes/alpine-mongo
+    ports:
+      - "27018:27017"
+    container_name: mongo
+    volumes:
+      - ./db/:/data/db
+
+  backent:
+    build:
+      dockerfile: Dockerfile
+      context: ./backent
+    container_name: backent
+    ports:
+      - "5000:5000"
+    restart: always
+    depends_on:
+      - "nosql-db"
+    volumes:
+      - .:/app
+      - /app/backent/node_modules
+
+
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    container_name: client
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - "nosql-db"
+    volumes:
+      - .:/app
+      - /app/client/node_modules
