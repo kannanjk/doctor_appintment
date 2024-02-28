@@ -22,11 +22,12 @@ db()
     console.error(`Error: ${error.message}`.red.underline.bold); 
     process.exit(1);
   });
- 
+  
 
 app.listen(process.env.PORT, function () {
   console.log(` app listening in ${process.env.NODE_MODE} mode on port ${process.env.PORT}`.bgCyan.white)
 })
+
 app.use('/user', userRout)
 app.use('/admin', adminRoute)
 app.use('/doctor', doctorRoute)
